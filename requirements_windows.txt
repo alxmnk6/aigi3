@@ -1,0 +1,92 @@
+# Core dependencies
+phidata==2.5.3
+fastapi==0.115.2
+uvicorn==0.32.0
+streamlit==1.39.0
+pydantic==2.9.2
+python-dotenv==1.0.1
+nest-asyncio==1.6.0
+
+# Database and storage
+sqlalchemy==2.0.36
+alembic==1.13.3
+psycopg==3.1.19
+psycopg-binary==3.1.19
+pgvector==0.3.5
+redis==5.0.1
+qdrant-client==1.7.0
+
+# AI and ML
+openai==1.51.2
+tiktoken==0.8.0
+numpy>=1.26.0
+pandas==2.2.3
+scikit-learn>=1.4.1.post1
+transformers==4.38.2
+sentence-transformers==2.5.1
+
+# Document processing
+pypdf==5.0.1
+python-docx==1.1.2
+python-pptx==0.6.23
+python-magic==0.4.27
+pdf2image==1.17.0
+pandoc==2.3
+graphviz==0.20.1
+python-magic-bin==0.4.14; sys_platform == 'win32'
+
+# Web and data tools
+requests==2.32.3
+beautifulsoup4==4.12.3
+duckduckgo-search==6.3.2
+yfinance==0.2.36
+newspaper3k==0.2.8
+youtube-transcript-api==0.6.2
+feedparser==6.0.11
+selenium==4.18.1
+
+# Utilities
+python-dateutil==2.9.0.post0
+pytz==2024.2
+tqdm==4.66.5
+tenacity==9.0.0
+cachetools==5.5.0
+schedule==1.2.1
+aiohttp==3.9.3
+asyncio==3.4.3
+
+# Development tools
+pytest>=8.3.3
+mypy==1.12.0
+ruff==0.6.9
+black>=24.2.0
+
+# AWS (optional, for cloud storage)
+boto3==1.35.41
+
+# Monitoring and logging
+prometheus-client==0.20.0
+python-json-logger==2.0.7
+opentelemetry-api==1.23.0
+opentelemetry-sdk==1.23.0
+opentelemetry-instrumentation==0.44b0
+
+# Team coordination
+minio==7.2.5
+python-jose==3.3.0
+fastapi-users==12.1.3
+
+# Security packages (removed safety due to conflicts)
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+pyjwt==2.8.0
+cryptography==42.0.5
+bandit==1.7.7
+
+# UI/UX
+streamlit-chat==0.1.1
+streamlit-extras==0.4.0
+streamlit-option-menu==0.3.12
+watchdog==4.0.0
+plotly==5.19.0
+altair==5.2.0

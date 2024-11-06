@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  db:
+    image: phidata/pgvector:16
+    environment:
+      - POSTGRES_DB=ai
+      - POSTGRES_USER=ai
+      - POSTGRES_PASSWORD=ai
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass ai_redis_password
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT_ALLOW_RESET=true
+      - QDRANT_LOG_LEVEL=INFO
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PHI_API_KEY=${PHI_API_KEY}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=ai
+      - DB_PASSWORD=ai
+      - DB_DATABASE=ai
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=ai_redis_password
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - STREAMLIT_THEME_BASE=light
+      - STREAMLIT_SERVER_MAX_UPLOAD_SIZE=50
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PHI_API_KEY=${PHI_API_KEY}
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=ai
+      - DB_PASSWORD=ai
+      - DB_DATABASE=ai
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=ai_redis_password
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  qdrant_data:
